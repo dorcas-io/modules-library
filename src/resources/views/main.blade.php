@@ -8,22 +8,22 @@
 <div class="row">
     @include('layouts.blocks.tabler.sub-menu')
 
-    <div class="col-md-4 col-xl-4">
+    <div class="col-md-3 col-xl-3">
         <div class="card">
-            <div class="card-status bg-purple"></div>
+            <div class="card-status bg-green"></div>
             <div class="card-header">
-                <h3 class="card-title">Customer Manager</h3>
+                <h3 class="card-title">Videos</h3>
                 <div class="card-options">
-                    <a href="{{ route('customers-customers') }}" class="btn btn-success btn-sm">View</a>
+                    <a href="{{ route('library-videos') }}" class="btn btn-success btn-sm">Explore Videos</a>
                 </div>
             </div>
             <div class="card-body">
-                Manage your <strong>customers</strong>, their contact information, custom configured data, and other relationship information.
+                Access a vast video-based knowledgebase across multiple sectors, categories &amp; topics.
             </div>
         </div>
     </div>
 
-    <div class="col-md-4 col-xl-4">
+    <!-- <div class="col-md-4 col-xl-4">
         <div class="card">
             <div class="card-status bg-teal"></div>
             <div class="card-header">
@@ -36,7 +36,7 @@
                 Manage <strong>custom fields</strong> for customer contact information, so you store what you need from your customers.
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 

@@ -3,8 +3,11 @@
 namespace Dorcas\ModulesLibrary\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class ModulesLibrary extends Model
+class ModulesLibraryResources extends Model
 {
     protected $guarded = [];
-    //protected $table = 'modules-library';
+    protected $table = 'mli_resources';
+    //artisan make:migration create_resources_table --create=modules_library_resources --path=../../Modules/modules-library/src/database/migrations
+
+    
 }
