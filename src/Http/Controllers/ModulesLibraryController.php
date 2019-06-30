@@ -66,17 +66,17 @@ class ModulesLibraryController extends HubController {
 
         $this->setViewUiResponse($request);
 
-        $resources = config('modules-library.library.sample_resources');
-        $this->data['videos'] = array_filter($resources, function ($resource) {
+        //$resources = config('modules-library.library.sample_resources');
+       /* $this->data['videos'] = array_filter($resources, function ($resource) {
             return $resource["resource_type"]=="video" && $resource["resource_category"]==$this->data['selectedCategory'] && ($this->data['selectedSubCategory']==0 ? $resource["resource_subcategory"]>=$this->data['selectedSubCategory'] : $resource["resource_subcategory"]==$this->data['selectedSubCategory']);
-        });
+        });*/
         //dd($this->data["videos"]);
-        /*$resources = $this->getLibraryResources('video');
+        $resources = $this->getLibraryResources('video');
         //dd($resources);
         $this->data['videos'] = $resources->filter(function ($resource, $key) {
             return $resource->resource_type=="video" && $resource->resource_category==$this->data['selectedCategory'] && ($this->data['selectedSubCategory']==0 ? $resource->resource_subcategory>=$this->data['selectedSubCategory'] : $resource->resource_subcategory==$this->data['selectedSubCategory']);
             //return $resource;
-        })->all();*/
+        })->all();
         return view('modules-library::videos.videos', $this->data);
     }
 
