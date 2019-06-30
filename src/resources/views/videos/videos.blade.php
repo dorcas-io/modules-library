@@ -32,11 +32,29 @@
     <div class="col-md-9 col-xl-9">
 
         <div class="container" id="listing_videos">
-            <div class="row mt-3" v-show="videos.length > 0">
-                <library-video-card class="s12 m4" v-for="(video, index) in videos" :key="video.id" :video="video" :index="index" v-on:watch-video="watchVideo"></library-video-card>
+            <div class="row mt-3" style="display: flex !important;" v-if="showVideos">
+                <!-- <library-video-card class="s12 m4" v-for="video in videos" :key="video.id" :video="video" v-on:watch-video="watchVideo"></library-video-card> -->
+                <div class="col-md-6" v-for="video in videos" :key="video.id" :video="video">
+                  <div class="card p-3">
+                    <a href="javascript:void(0)" class="mb-3">
+                      <img v-bind:src="video.resource_thumb" v-bind:alt="video.resource_title" class="rounded" data-resource-id="" v-bind:data-resource-source="video.resource_source" v-on:click.prevent="watchVideo(video.id)">
+                    </a>
+                    <div class="d-flex align-items-center px-2">
+                      <div class="avatar avatar-md mr-3" v-bind:style="{ 'background-image': 'url(' + video.resource_thumb + ')' }"></div>
+                      <div>
+                        <small class="d-block text-muted">@{{ video.resource_title }}</small>
+                      </div>
+                      <!-- <div class="ml-auto text-muted">
+                        <a href="#" v-on:click.prevent="watchVideo(video.id)" data-resource-id="" v-bind:data-resource-source="video.resource_source" class="icon"><i class="fe fe-eye mr-1"></i></a>
+                        <a href="#" data-resource-id="" data-resource-source="" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+
             </div>
             @include('modules-library::modals.viewer_video')
-            <div class="col s12" v-if="videos.length === 0">
+            <div class="col s12" v-if="!showVideos">
                 @component('layouts.blocks.tabler.empty-fullpage')
                     @slot('title')
                         No Videos
@@ -60,34 +78,57 @@
         var vm = new Vue({
             el: '#listing_videos',
             data: {
-                videos: {!! json_encode(!empty($videos) ? $videos : []) !!}
+                videos: {!! json_encode(!empty($videos) ? $videos : []) !!},
+                video: []
             },
             computed: {
-                
+                showVideos: function() {
+                    if (Array.isArray(this.videos)) {
+                      return this.videos.length > 0
+                    } else {
+                      return Object.keys(this.videos).length > 0;
+                    }
+                }
             },
             methods: {
-                watchVideo: function (index) {
-                    let video = typeof this.videos[index] !== 'undefined' ? this.videos[index] : null;
-                    if (video === null) {
+                watchVideo: function (id) {
+                    //let video = typeof this.videos[index] !== 'undefined' ? this.videos[index] : null;
+
+                    var vide;
+
+                    if (Array.isArray(this.videos)) {
+                      var video = this.videos.find( vid => vid.id===id );
+                      this.video = video;
+                      //console.log(video)
+                      vide = video
+                    } else {
+                      var video = Object.keys(this.videos).find(key => this.videos[key].id === id);
+                      this.video = this.videos[video];
+                      //console.log(this.videos[video])
+                      vide = this.videos[video]
+                    }
+                    
+                    /*if (this.video === null) {
                         return;
                     }
-                    console.log(video);
-                    this.video = video;
+                    //console.log(video);
+                    this.video = video;*/
                     $('#player-video-modal').modal('show');
 
                     $('#player-video-modal').on('shown.bs.modal', function (e) {
-                      $("#library-resource-video").attr('src', video.resource_video + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0&amp;rel=0" );
+                      $("#library-resource-video").attr('src', vide.resource_video + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0&amp;rel=0" );
                       var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-                      let resource_linked = video.resource_description.replace(exp, "<a target=\"_blank\" href='$1'>$1</a>");
+                      let resource_linked = vide.resource_description.replace(exp, "<a target=\"_blank\" href='$1'>$1</a>");
                       $("#library-resource-description").html(resource_linked);
                     });
                     $('#player-video-modal').on('hide.bs.modal', function (e) {
-                      $("#library-resource-video").attr('src', video.resource_video );
+                      $("#library-resource-video").attr('src', vide.resource_video );
                     });
                 }
             },
             mounted: function() {
-                console.log(this.videos)
+                //console.log(this.videos)
+                //console.log(Array.isArray(this.videos))
             }
         });
 
