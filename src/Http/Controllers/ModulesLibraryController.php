@@ -14,7 +14,6 @@ use App\Http\Controllers\HubController;
 
 class ModulesLibraryController extends HubController {
 
-
     const LIBRARY_CATEGORIES = [
         0 => 'General',
         1 => 'Health Sector'

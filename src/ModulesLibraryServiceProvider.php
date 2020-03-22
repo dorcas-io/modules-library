@@ -9,6 +9,7 @@ class ModulesLibraryServiceProvider extends ServiceProvider {
 	{
 		$this->loadRoutesFrom(__DIR__.'/routes/web.php');
 		$this->loadViewsFrom(__DIR__.'/resources/views', 'modules-library');
+		$this->loadMigrationsFrom(__DIR__.'/migrations');
 		$this->publishes([
 			__DIR__.'/config/modules-library.php' => config_path('modules-library.php'),
 		], 'config');
