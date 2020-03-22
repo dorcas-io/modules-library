@@ -13,7 +13,7 @@ class CreateMdaVideosTable extends Migration
      */
     public function up()
     {
-        Schema::create('mda_videos', function (Blueprint $table) {
+        Schema::connection('dorcas-api')->create('mda_videos', function (Blueprint $table) {
             $table->increments('id');
             $table->char('partner_id','50');
             $table->uuid('resource_uuid');
@@ -37,6 +37,6 @@ class CreateMdaVideosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mda_videos');
+        Schema::connection('dorcas-api')->dropIfExists('mda_videos');
     }
 }
