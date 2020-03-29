@@ -5,6 +5,7 @@ Route::group(['namespace' => 'Dorcas\ModulesLibrary\Http\Controllers', 'middlewa
     //Route::get('library-videos', 'ModulesLibraryController@videos')->name('library-videos');
 
     Route::get('library-main', 'ModulesLibraryVideosController@index')->name('library-main');
+    Route::get('library-videos', 'ModulesLibraryVideosController@index')->name('library-videos');
 });
 
 

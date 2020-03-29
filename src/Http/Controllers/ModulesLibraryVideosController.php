@@ -16,6 +16,20 @@ use App\Http\Controllers\HubController;
 
 class ModulesLibraryVideosController extends HubController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->data = [
+            'page' => ['title' => config('modules-library.title')],
+            'header' => ['title' => config('modules-library.title')],
+            'selectedMenu' => 'addons',
+            'submenuConfig' => 'navigation-menu.addons.sub-menu.modules-library.sub-menu',
+            'submenuAction' => ''
+        ];
+    }
+
+
     public function index(Request $request, Sdk $sdk)
     {
         //return redirect()->route('task.create');
@@ -40,6 +54,7 @@ class ModulesLibraryVideosController extends HubController
 
         $resources = $this->getLibraryVideos($request, $sdk);
         //dd($resources);
+        //$view->with('isoCurrencies', $currencies->values()->sortBy('currency'));
         $this->data['videos'] = $resources->filter(function ($resource, $key) {
             return $resource->resource_type=="video" && $resource->resource_category==$this->data['selectedCategory'] && ($this->data['selectedSubCategory']==0 ? $resource->resource_subcategory>=$this->data['selectedSubCategory'] : $resource->resource_subcategory==$this->data['selectedSubCategory']);
         })->all();
