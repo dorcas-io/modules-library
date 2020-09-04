@@ -12,10 +12,10 @@ class ModulesLibraryServiceProvider extends ServiceProvider {
 		$this->loadMigrationsFrom(__DIR__.'/migrations');
 		$this->publishes([
 			__DIR__.'/config/modules-library.php' => config_path('modules-library.php'),
-		], 'config');
+		], 'dorcas-modules');
 		/*$this->publishes([
 			__DIR__.'/assets' => public_path('vendor/modules-library')
-		], 'public');*/
+		], 'dorcas-modules');*/
 	}
 
 	public function register()
