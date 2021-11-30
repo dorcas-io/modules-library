@@ -4,7 +4,7 @@ namespace Dorcas\ModulesLibrary\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Dorcas\ModulesLibrary\Models\ModulesLibrary;
+use Dorcas\ModulesLibrary\Models\ModulesLibraryResources;
 use App\Dorcas\Hub\Utilities\UiResponse\UiResponse;
 use App\Http\Controllers\HomeController;
 use Hostville\Dorcas\Sdk;
